@@ -69,7 +69,10 @@ namespace EchoBotDemo.Bots
         {
             foreach (var member in membersAdded)
             {
-                await GetName(turnContext, cancellationToken);
+                if(member.Id != turnContext.Activity.Recipient.Id) 
+                {
+                    await GetName(turnContext, cancellationToken);
+                }
             }
         }
     }
