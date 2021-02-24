@@ -8,6 +8,7 @@ using EchoBotDemo.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Bot.Builder;
+using Microsoft.Bot.Builder.Azure.Blobs;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +41,10 @@ namespace EchoBotDemo
         private void ConfigurateState(IServiceCollection services)
         {
             // Create the storate we will be using for User and Conversation state.
-            services.AddSingleton<IStorage, MemoryStorage>();
+            //services.AddSingleton<IStorage, MemoryStorage>();
+            var storageAccount = "";
+            var storageContainer = "";
+            services.AddSingleton<IStorage>(new BlobsStorage(storageAccount, storageContainer));
 
             // Create the User state
             services.AddSingleton<UserState>();
